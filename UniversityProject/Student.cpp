@@ -1,27 +1,19 @@
 #include "Student.h"
-#include <iostream>
-#include <utility> // для move
+#include <utility>
 
-using namespace std;
-
-Student::Student(string n, int a, string id)
-    : Person(n, a), studentID{ id } {
+Student::Student(string n, int a, string id) : Person(n, a), studentID(id) {
     grades = new vector<Grade>();
 }
 
-// Deep Copy
-Student::Student(const Student& other)
-    : Person(other), studentID{ other.studentID } {
+Student::Student(const Student& other) : Person(other), studentID(other.studentID) {
     grades = new vector<Grade>(*other.grades);
 }
 
-// Move Constructor
 Student::Student(Student&& other) noexcept
-    : Person(move(other)), studentID{ move(other.studentID) }, grades{ other.grades } {
+    : Person(move(other)), studentID(move(other.studentID)), grades(other.grades) {
     other.grades = nullptr;
 }
 
-// Operator=
 Student& Student::operator=(const Student& rhs) {
     if (this == &rhs) return *this;
     Person::operator=(rhs);
@@ -32,18 +24,17 @@ Student& Student::operator=(const Student& rhs) {
 }
 
 void Student::addGrade(string sub, int sc) {
-    grades->push_back(Grade(sub, sc));
-}
-
-Student::~Student() {
-    delete grades;
+    if (grades) grades->push_back(Grade(sub, sc));
 }
 
 int Student::getGradesCount() const {
-    if (grades == nullptr) return 0;
-    return (int)grades->size();
+    return (grades != nullptr) ? (int)grades->size() : 0;
 }
 
 bool Student::isGradesEmpty() const {
     return grades == nullptr;
+}
+
+Student::~Student() {
+    delete grades;
 }

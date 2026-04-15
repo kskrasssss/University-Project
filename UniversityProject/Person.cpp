@@ -1,16 +1,22 @@
 #include "Person.h"
 #include <iostream>
 
-using namespace std;
-
-Person::Person(string n, int a) : name{ n }, age{ a } {
-    cout << "Constructor Person [" << name << "]\n";
+Person::Person(string n, int a) : name(n), age(a) {
+    cout << "Constructor Person [" << name << "]" << endl;
 }
 
 Person::~Person() {
-    cout << "Destructor Person [" << name << "]\n";
+    cout << "Destructor Person [" << name << "]" << endl;
 }
 
-void Person::info() const {
-    cout << "Name: " << name << ", Age: " << age << endl;
+string Person::getName() const {
+    return name;
+}
+
+Person& Person::operator=(const Person& other) {
+    if (this != &other) {
+        name = other.name;
+        age = other.age;
+    }
+    return *this;
 }
