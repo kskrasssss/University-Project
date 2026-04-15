@@ -1,6 +1,7 @@
 #include <iostream>
 #include <utility>
 #include "Student.h"
+#include "PostgraduateStudent.h"
 
 using namespace std;
 
@@ -27,6 +28,13 @@ int main() {
         cout << "Student 1 is now empty (resources moved successfully)." << endl;
     }
 
-    cout << "\n--- End of tests (Destructors will be called now) ---" << endl;
+    cout << "\n End of tests (Destructors will be called now)" << endl;
+
+    cout << "\n Testing Postgraduate Student" << endl;
+    PostgraduateStudent pg("Dr. Alex", 28, "PHD-777", "AI in Healthcare");
+    pg.addGrade("Research Methodology", 100);
+    pg.displayInfo();
+    cout << "Grades count: " << pg.getGradesCount() << endl;
+
     return 0;
 }
