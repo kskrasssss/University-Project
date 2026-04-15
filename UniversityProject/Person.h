@@ -1,16 +1,19 @@
 #ifndef PERSON_H
 #define PERSON_H
-#include <string>
 
+#include <string>
 using namespace std;
 
 class Person {
 protected:
     string name;
     int age;
+
 public:
-    Person(string n = "None", int a = 0);
+    Person(string n, int a);
     virtual ~Person();
-    void info() const;
+    string getName() const;
+    Person& operator=(const Person& other);
 };
+
 #endif

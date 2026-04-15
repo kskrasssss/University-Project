@@ -2,12 +2,13 @@
 #define GRADE_H
 
 #include <string>
+using namespace std;
 
 struct Grade {
-    std::string subject;
+    string subject;
     int score;
 
-    Grade(std::string sub, int sc) : subject(sub), score(sc) {}
+    Grade(string sub, int sc) : subject(sub), score(sc) {}
 };
 
 #endif
