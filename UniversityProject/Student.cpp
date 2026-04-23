@@ -1,14 +1,23 @@
 #include "Student.h"
 #include <utility>
+#include <iostream>
 
 Student::Student(string n, int a, string id) : Person(n, a), studentID(id) {
     grades = new vector<Grade>();
 }
 
+string Student::getAge() const{
+    cout << "Getting age STUDENT for [" << name << "] - " << to_string(age) << endl;
+    return to_string(age);
+}
+
+
+// Deep copy constructor
 Student::Student(const Student& other) : Person(other), studentID(other.studentID) {
     grades = new vector<Grade>(*other.grades);
 }
 
+// Move constructor
 Student::Student(Student&& other) noexcept
     : Person(move(other)), studentID(move(other.studentID)), grades(other.grades) {
     other.grades = nullptr;
