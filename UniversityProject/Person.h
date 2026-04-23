@@ -12,9 +12,8 @@ protected:
 public:
     Person(string n, int a);
     virtual ~Person();
-    virtual string getAge() const;
-    Person& operator=(const Person& other);
-    // ми змінюємо поведінку оператора присвоєння, копіюємо з (const Person& other). Перед operator= це те, що функція поверне, тобто посилання на себе ж
-};
 
+    virtual string getAge() const;
+    string getName() const;
+};
 #endif
