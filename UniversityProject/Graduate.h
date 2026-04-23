@@ -4,11 +4,9 @@
 #include <string>
 using namespace std;
 
-struct Graduate {
-    string subject;
-    int score;
-
-    Graduate(string sub, int sc) : subject(sub), score(sc) {}
+class Graduate {
+public:
+    virtual string getDegree() const = 0;
+    virtual ~Graduate() {}
 };
-
 #endif

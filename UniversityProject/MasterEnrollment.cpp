@@ -6,7 +6,5 @@ bool MasterEnrollment::checkEligibility(const Student& student) {
 }
 
 void MasterEnrollment::printRequirements() const {
-    std::cout << "Master requirements:\n";
-    std::cout << "- Bachelor diploma required\n";
-    std::cout << "- EVI/EFVV exams required\n";
+    std::cout << "Master requirements\n";
 }
