@@ -3,7 +3,7 @@
 #include <iostream>
 
 Student::Student(string n, int a, string id) : Person(n, a), studentID(id) {
-    grades = new vector<Grade>();
+    grades = new vector<Graduate>();
 }
 
 string Student::getAge() const{
@@ -14,7 +14,7 @@ string Student::getAge() const{
 
 // Deep copy constructor
 Student::Student(const Student& other) : Person(other), studentID(other.studentID) {
-    grades = new vector<Grade>(*other.grades);
+    grades = new vector<Graduate>(*other.grades);
 }
 
 // Move constructor
@@ -28,12 +28,12 @@ Student& Student::operator=(const Student& rhs) {
     Person::operator=(rhs);
     delete grades;
     studentID = rhs.studentID;
-    grades = new vector<Grade>(*rhs.grades);
+    grades = new vector<Graduate>(*rhs.grades);
     return *this;
 }
 
 void Student::addGrade(string sub, int sc) {
-    if (grades) grades->push_back(Grade(sub, sc));
+    if (grades) grades->push_back(Graduate(sub, sc));
 }
 
 int Student::getGradesCount() const {
