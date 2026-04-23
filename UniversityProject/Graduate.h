@@ -4,11 +4,11 @@
 #include <string>
 using namespace std;
 
-struct Grade {
+struct Graduate {
     string subject;
     int score;
 
-    Grade(string sub, int sc) : subject(sub), score(sc) {}
+    Graduate(string sub, int sc) : subject(sub), score(sc) {}
 };
 
 #endif

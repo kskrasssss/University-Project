@@ -2,13 +2,13 @@
 #define STUDENT_H
 
 #include "Person.h"
-#include "Grade.h"
+#include "Graduate.h"
 #include <vector>
 
 class Student : public Person {
 private:
     string studentID;
-    vector<Grade>* grades;
+    vector<Graduate>* grades;
 
 public:
     Student(string n, int a, string id);
