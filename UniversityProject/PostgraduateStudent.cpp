@@ -7,5 +7,5 @@ PostgraduateStudent::PostgraduateStudent(string n, int a, string id, string topi
 }
 
 void PostgraduateStudent::displayInfo() const {
-    cout << "Postgrad: " << getName() << " | Thesis: " << thesisTopic << endl;
+    cout << "Postgrad: " << getAge() << " | Thesis: " << thesisTopic << endl;
 }

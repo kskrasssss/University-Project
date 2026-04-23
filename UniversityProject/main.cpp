@@ -1,10 +1,14 @@
 #include <iostream>
 #include <utility>
 #include "PostgraduateStudent.h"
+#include "MasterEnrollment.h"
+#include "Student.h"
 
 using namespace std;
 
 int main() {
+    Student s("Ivan", 20, "ST-999");
+
     cout << " Testing Student and Deep Copy" << endl;
     Student s1("Kateryna", 19, "ST-2024");
     s1.addGrade("C++", 100);
@@ -31,6 +35,12 @@ int main() {
     cout << "\n Testing Person" << endl;
 	Person person("John", 30);
     person.getAge();
+
+	cout << "\n Testing Enrollment(runtime polymorphism)" << endl;
+    Enrollment* e = new MasterEnrollment();
+
+    e->printRequirements();
+    e->checkEligibility(s);
 
 
     cout << "\n End of Program" << endl;
