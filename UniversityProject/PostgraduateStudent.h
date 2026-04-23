@@ -10,6 +10,7 @@ private:
 public:
     PostgraduateStudent(string n, int a, string id, string topic);
     void displayInfo() const;
+    string getAge() const override;
 };
 
 #endif
