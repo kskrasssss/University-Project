@@ -24,6 +24,15 @@ int main() {
     pg.addGrade("Research", 99);
     pg.displayInfo();
 
+	cout << "\n Testing Polymorphism" << endl;
+	Person* p = new PostgraduateStudent("Maria", 28, "PHD-88", "Data Science");
+	p->getAge();
+
+    cout << "\n Testing Person" << endl;
+	Person person("John", 30);
+    person.getAge();
+
+
     cout << "\n End of Program" << endl;
     return 0;
 }

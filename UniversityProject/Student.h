@@ -16,6 +16,7 @@ public:
     Student(Student&& other) noexcept;
     Student& operator=(const Student& rhs);
     virtual ~Student();
+    virtual string getAge() const override;
 
     void addGrade(string sub, int sc);
     int getGradesCount() const;

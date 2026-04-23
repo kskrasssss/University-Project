@@ -13,6 +13,11 @@ string Person::getName() const {
     return name;
 }
 
+string Person::getAge() const {
+	cout << "Getting age PERSON for [" << name << "] - " << to_string(age) << endl;
+    return to_string(age);
+}
+
 Person& Person::operator=(const Person& other) {
     if (this != &other) {
         name = other.name;
