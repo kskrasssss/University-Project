@@ -68,3 +68,13 @@ void Student::setMaster(bool status) {
 bool Student::getHasMaster() const {
     return hasMaster;
 }
+
+
+
+void Student::setPublications(bool status) {
+    hasPublications = status;
+}
+
+bool Student::getHasPublications() const {
+    return hasPublications;
+}  
