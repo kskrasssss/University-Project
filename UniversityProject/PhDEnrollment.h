@@ -1,9 +1,8 @@
 #pragma once
 #include "Enrollment.h"
 
-class MasterEnrollment : public Enrollment {
+class PhDEnrollment final : public Enrollment {
 public:
-    // ƒобавл€ем const в конце, чтобы совпало с родителем
     bool checkEligibility(const Student& student) const override;
     void printRequirements() const override;
 };

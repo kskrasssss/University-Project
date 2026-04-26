@@ -1,48 +1,32 @@
 #include <iostream>
-#include <utility>
-#include "PostgraduateStudent.h"
-#include "MasterEnrollment.h"
 #include "Student.h"
+#include "MasterEnrollment.h"
+#include "PhDEnrollment.h"
 
 using namespace std;
 
+void process(const Enrollment& e, const Student& s) {
+    e.printRequirements();
+    e.checkEligibility(s);
+}
+
 int main() {
-    Student s("Ivan", 20, "ST-999");
+    Student s1("Kateryna", 19, "ST-01");
 
-    cout << " Testing Student and Deep Copy" << endl;
-    Student s1("Kateryna", 19, "ST-2024");
-    s1.addGrade("C++", 100);
+    cout << "Testing MasterEnrollment\n";
+    MasterEnrollment m;
+    m.printRequirements();
+    m.checkEligibility(s1);
 
-    Student s2 = s1;
-    s2.addGrade("Math", 95);
-
-    cout << "S1 grades: " << s1.getGradesCount() << endl;
-    cout << "S2 grades: " << s2.getGradesCount() << endl;
-
-    cout << "\n Testing Move Semantics" << endl;
-    Student s3 = move(s2);
-    cout << "S3 (moved) name: " << s3.getName() << endl;
-
-    cout << "\n Testing Inheritance" << endl;
-    PostgraduateStudent pg("Alex", 25, "PHD-77", "AI Systems");
-    pg.addGrade("Research", 99);
-    pg.displayInfo();
-
-	cout << "\n Testing Polymorphism" << endl;
-	Person* p = new PostgraduateStudent("Maria", 28, "PHD-88", "Data Science");
-	p->getAge();
-
-    cout << "\n Testing Person" << endl;
-	Person person("John", 30);
-    person.getAge();
-
-	cout << "\n Testing Enrollment(runtime polymorphism)" << endl;
+    cout << "\nTesting polymorphism (pointer)\n";
     Enrollment* e = new MasterEnrollment();
-
     e->printRequirements();
-    e->checkEligibility(s);
+    e->checkEligibility(s1);
 
+    cout << "\nTesting polymorphism (reference)\n";
+    process(m, s1);
 
-    cout << "\n End of Program" << endl;
+    delete e;
+
     return 0;
 }

@@ -13,33 +13,57 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="models">
+      <UniqueIdentifier>{e0f56126-f665-4546-9390-f47f8f0169f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="education">
+      <UniqueIdentifier>{b3487279-a781-4cde-a74c-5596496a8201}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="enrollment">
+      <UniqueIdentifier>{3447ea3d-3701-4325-bb9a-33952d93d651}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Person.h">
-      <Filter>Header Files</Filter>
+      <Filter>models</Filter>
     </ClInclude>
     <ClInclude Include="Student.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Grade.h">
-      <Filter>Header Files</Filter>
+      <Filter>models</Filter>
     </ClInclude>
     <ClInclude Include="PostgraduateStudent.h">
-      <Filter>Header Files</Filter>
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="Graduate.h">
+      <Filter>education</Filter>
+    </ClInclude>
+    <ClInclude Include="Enrollment.h">
+      <Filter>enrollment</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterEnrollment.h">
+      <Filter>enrollment</Filter>
+    </ClInclude>
+    <ClInclude Include="PhDEnrollment.h">
+      <Filter>enrollment</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Person.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Person.cpp">
+      <Filter>models</Filter>
+    </ClCompile>
     <ClCompile Include="Student.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>models</Filter>
     </ClCompile>
     <ClCompile Include="PostgraduateStudent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>models</Filter>
+    </ClCompile>
+    <ClCompile Include="MasterEnrollment.cpp">
+      <Filter>enrollment</Filter>
+    </ClCompile>
+    <ClCompile Include="PhDEnrollment.cpp">
+      <Filter>enrollment</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

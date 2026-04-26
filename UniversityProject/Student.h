@@ -8,6 +8,10 @@
 
 class Student : public Person {
 private:
+    int eviScore;
+    bool hasBachelor;
+    bool hasMaster;
+    bool hasPublications;
     string studentID;
     vector<int> grades;
 
@@ -20,6 +24,15 @@ public:
 
     void addGrade(int grade);
     int getGradesCount() const;
+
+    void setEviScore(int score);
+    int getEviScore() const;
+
+    void setBachelor(bool status);
+    bool getHasBachelor() const;
+
+    void setMaster(bool status);
+    bool getHasMaster() const;
 };
 
 #endif

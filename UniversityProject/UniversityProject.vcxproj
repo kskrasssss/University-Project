@@ -123,14 +123,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Grade.h" />
+    <ClInclude Include="Enrollment.h" />
+    <ClInclude Include="Graduate.h" />
+    <ClInclude Include="MasterEnrollment.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="PhDEnrollment.h" />
     <ClInclude Include="PostgraduateStudent.h" />
     <ClInclude Include="Student.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MasterEnrollment.cpp" />
     <ClCompile Include="Person.cpp" />
+    <ClCompile Include="PhDEnrollment.cpp" />
     <ClCompile Include="PostgraduateStudent.cpp" />
     <ClCompile Include="Student.cpp" />
   </ItemGroup>
