@@ -9,3 +9,7 @@ PostgraduateStudent::PostgraduateStudent(string n, int a, string id, string topi
 void PostgraduateStudent::displayInfo() const {
     cout << "Postgrad: " << getAge() << " | Thesis: " << thesisTopic << endl;
 }
+
+string PostgraduateStudent::getAge() const {
+    return Person::getAge() + " (Postgraduate Research Phase)";
+}
