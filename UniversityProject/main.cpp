@@ -13,20 +13,19 @@ void process(const Enrollment& e, const Student& s) {
 int main() {
     Student s1("Kateryna", 19, "ST-01");
 
-    cout << "Testing MasterEnrollment\n";
-    MasterEnrollment m;
-    m.printRequirements();
-    m.checkEligibility(s1);
+    s1.setBachelor(true);
+    s1.setEviScore(145);
 
-    cout << "\nTesting polymorphism (pointer)\n";
-    Enrollment* e = new MasterEnrollment();
-    e->printRequirements();
-    e->checkEligibility(s1);
+    MasterEnrollment masterCommittee;
 
-    cout << "\nTesting polymorphism (reference)\n";
-    process(m, s1);
+    masterCommittee.printRequirements();
 
-    delete e;
+    if (masterCommittee.checkEligibility(s1)) {
+        std::cout << "\nCongratulations! You can proceed to document submission." << std::endl;
+    }
+    else {
+        std::cout << "\nWe are sorry. Please try again next year." << std::endl;
+    }
 
     return 0;
 }
