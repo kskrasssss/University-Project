@@ -1,48 +1,46 @@
 #include <iostream>
+#include <vector>
 #include "Student.h"
 #include "MasterEnrollment.h"
 #include "PhDEnrollment.h"
 
-using namespace std;
-
-void process(const Enrollment& e, const Student& s) {
-    e.printRequirements();
-    e.checkEligibility(s);
-}
+//void process(const Enrollment& e, const Student& s) {
+//    e.printRequirements();
+//    e.checkEligibility(s);
+//}
 
 int main() {
-    Student s1("Kateryna", 19, "ST-01");
-
+    Student s1("Kateryna", 21, "ST-777");
     s1.setBachelor(true);
-    s1.setEviScore(145);
+    s1.setMaster(false);
+    s1.setEviScore(175);
+    s1.setPublications(true);
 
-    MasterEnrollment masterCommittee;
+    std::vector<Enrollment*> universityPrograms;
 
-    masterCommittee.printRequirements();
+    universityPrograms.push_back(new MasterEnrollment());
+    universityPrograms.push_back(new PhDEnrollment());
 
-    if (masterCommittee.checkEligibility(s1)) {
-        std::cout << "\nCongratulations! You can proceed to document submission." << std::endl;
+    std::cout << "--- UNIVERSITY ADMISSION SYSTEM START ---" << std::endl;
+
+    //ПОЛІМОРФНИЙ ЦИКЛ
+    for (Enrollment* program : universityPrograms) {
+        // Для кожного вказівника р(типу Enrollment), який лежить у контейнері programs, зроби:
+        program->printRequirements();
+
+        if (program->checkEligibility(s1)) {
+            std::cout << ">>> Decision: You are eligible for this program!" << std::endl;
+        }
+        else {
+            std::cout << ">>> Decision: Sorry, you do not meet the criteria." << std::endl;
+        }
+        std::cout << "----------------------------------------" << std::endl;
     }
-    else {
-        std::cout << "\nWe are sorry. Please try again next year." << std::endl;
+
+    //Очищення пам'яті
+    for (Enrollment* program : universityPrograms) {
+        delete program;
     }
 
-
-	Student s2("Oleh", 25, "ST-02");
-
-	s2.setMaster(true);
-	s2.setPublications(false);
-	s2.setEviScore(185);
-
-    PhDEnrollment phdOffice;
-    phdOffice.printRequirements();
-
-    if (!phdOffice.checkEligibility(s2)) {
-        std::cout << "\nOleh, you need to publish a research paper first!" << std::endl;
-        std::cout << "--- Publishing paper in 'Nature'... ---" << std::endl;
-        s2.setPublications(true);
-
-        phdOffice.checkEligibility(s2);
-    }
     return 0;
 }
