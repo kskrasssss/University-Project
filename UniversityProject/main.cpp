@@ -27,5 +27,22 @@ int main() {
         std::cout << "\nWe are sorry. Please try again next year." << std::endl;
     }
 
+
+	Student s2("Oleh", 25, "ST-02");
+
+	s2.setMaster(true);
+	s2.setPublications(false);
+	s2.setEviScore(185);
+
+    PhDEnrollment phdOffice;
+    phdOffice.printRequirements();
+
+    if (!phdOffice.checkEligibility(s2)) {
+        std::cout << "\nOleh, you need to publish a research paper first!" << std::endl;
+        std::cout << "--- Publishing paper in 'Nature'... ---" << std::endl;
+        s2.setPublications(true);
+
+        phdOffice.checkEligibility(s2);
+    }
     return 0;
 }

@@ -33,6 +33,9 @@ public:
 
     void setMaster(bool status);
     bool getHasMaster() const;
+
+	void setPublications(bool status);
+	bool getHasPublications() const;
 };
 
 #endif
