@@ -15,8 +15,8 @@ public:
 
     virtual string getAge() const;
     string getName() const;
-    void showType() { cout << "Object Type: Person" << endl; } // ¹1: ÑÒÀÒÈ×ÍÀ ïðèâ'ÿçêà (íåìàº virtual)
-    void displayInfo() const override { cout << "Person: " << name << endl; } // ¹8: Ðåàë³çàö³ÿ
+    void showType() { cout << "Object Type: Person" << endl; }
+    void displayInfo() const override { cout << "Person: " << name << endl; } 
 };
 
 #endif

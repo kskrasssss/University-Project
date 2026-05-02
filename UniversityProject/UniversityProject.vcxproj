@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="Enrollment.h" />
     <ClInclude Include="Graduate.h" />
+    <ClInclude Include="IDisplayable.h" />
     <ClInclude Include="MasterEnrollment.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="PhDEnrollment.h" />

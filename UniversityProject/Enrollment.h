@@ -2,7 +2,7 @@
 #include "Student.h"
 #include "IDisplayable.h"
 
-class Enrollment : public IDisplayable { // Теж наслідуємо інтерфейс
+class Enrollment : public IDisplayable {
 public:
     virtual ~Enrollment() {}
     void displayInfo() const override { cout << "Admission Logic Object" << endl; }

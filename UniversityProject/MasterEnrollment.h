@@ -3,7 +3,6 @@
 
 class MasterEnrollment : public Enrollment {
 public:
-    // ƒобавл€ем const в конце, чтобы совпало с родителем
     bool checkEligibility(const Student& student) const override;
     void printRequirements() const override;
 };

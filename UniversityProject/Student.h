@@ -36,6 +36,8 @@ public:
 
 	void setPublications(bool status);
 	bool getHasPublications() const;
+
+    void showType() { std::cout << "Type: STUDENT (Static)" << std::endl; }
 };
 
 #endif

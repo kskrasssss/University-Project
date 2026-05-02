@@ -1,11 +1,9 @@
 #include "Student.h"
 
-// Конструктор инициализации
 Student::Student(string n, int a, string id)
     : Person(n, a), studentID(id), eviScore(0), hasBachelor(false), hasMaster(false), hasPublications(false) {
 }
 
-// Конструктор копирования (Deep Copy для вектора делается автоматически самим вектором)
 Student::Student(const Student& other)
     : Person(other), studentID(other.studentID), grades(other.grades) {
 }
