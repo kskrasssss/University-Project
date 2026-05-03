@@ -6,7 +6,6 @@
 #include "Student.h"
 #include "ValidationException.h"
 
-// Req #3 Ч пароль винесено в константу (не хардкод всередин≥ функц≥њ)
 const std::string ADMIN_PASS = "admin123";
 const int MAX_LOGIN_ATTEMPTS = 3;
 
@@ -18,7 +17,10 @@ void clearInput() {
 void showAdminMenu() {
     std::cout << "\n--- Admin Panel ---\n"
         << "1. Add new student\n"
-        << "2. Save data to file\n"
+        << "2. Set student EVI score\n"       // Ќќ¬≈ Ч req #4
+        << "3. Set student degrees\n"          // Ќќ¬≈ Ч req #4
+        << "4. View all students\n"            // Ќќ¬≈
+        << "5. Save data to file\n"
         << "0. Back\n";
 }
 
@@ -42,9 +44,60 @@ void runAdminSession(UniversityManager& uni) {
             std::cout << "Age: ";        std::cin >> age;
             std::cout << "Student ID: "; std::cin >> id;
             uni.addStudent(std::make_shared<Student>(name, age, id));
+            // Req #8 Ч логуЇмо додаванн€ студента
+            uni.getLogger().log("admin", "Added student: " + name);
             std::cout << "Student added.\n";
         }
+        // Ќќ¬≈ Ч Req #4: встановити EVI score
         else if (action == 2) {
+            std::string id; int score;
+            std::cout << "Student ID: "; std::cin >> id;
+            std::cout << "EVI score (0-200): ";
+            if (!(std::cin >> score)) { clearInput(); continue; }
+
+            bool found = false;
+            for (auto& s : uni.getStudents()) {
+                if (s->getStudentID() == id) {
+                    try {
+                        s->setEviScore(score);
+                        uni.getLogger().log("admin", "Set EVI=" + std::to_string(score) + " for " + id);
+                        std::cout << "EVI updated.\n";
+                    }
+                    catch (const ValidationException& e) {
+                        std::cout << e.what() << "\n";
+                    }
+                    found = true; break;
+                }
+            }
+            if (!found) std::cout << "Student not found.\n";
+        }
+        // Ќќ¬≈ Ч Req #4: встановити ступен≥ та публ≥кац≥њ
+        else if (action == 3) {
+            std::string id; int b, m, p;
+            std::cout << "Student ID: ";          std::cin >> id;
+            std::cout << "Has Bachelor? (1/0): "; std::cin >> b;
+            std::cout << "Has Master?   (1/0): "; std::cin >> m;
+            std::cout << "Publications? (1/0): "; std::cin >> p;
+
+            bool found = false;
+            for (auto& s : uni.getStudents()) {
+                if (s->getStudentID() == id) {
+                    s->setBachelor(b); s->setMaster(m); s->setPublications(p);
+                    // Req #8 Ч логуЇмо зм≥ну ступен≥в
+                    uni.getLogger().log("admin", "Updated degrees for " + id);
+                    std::cout << "Degrees updated.\n";
+                    found = true; break;
+                }
+            }
+            if (!found) std::cout << "Student not found.\n";
+        }
+        // Ќќ¬≈ Ч перегл€нути вс≥х студент≥в
+        else if (action == 4) {
+            const auto& students = uni.getStudents();
+            if (students.empty()) std::cout << "No students yet.\n";
+            else for (const auto& s : students) s->displayInfo();
+        }
+        else if (action == 5) {
             uni.saveToDatabase();
         }
     }
@@ -69,7 +122,6 @@ void runUserSession(UniversityManager& uni) {
 }
 
 int main() {
-    // unique_ptr: ун≥верситет належить т≥льки main()
     auto university = std::make_unique<UniversityManager>();
     university->loadFromDatabase();
 
@@ -84,10 +136,8 @@ int main() {
         if (!(std::cin >> roleChoice)) { clearInput(); continue; }
 
         if (roleChoice == 1) {
-            // Req #3 Ч л≥чильник спроб, lockout п≥сл€ MAX_LOGIN_ATTEMPTS
             int attempts = 0;
             bool authenticated = false;
-
             while (attempts < MAX_LOGIN_ATTEMPTS) {
                 std::string pass;
                 std::cout << "Password (" << (MAX_LOGIN_ATTEMPTS - attempts) << " attempts left): ";
@@ -96,12 +146,11 @@ int main() {
                 attempts++;
                 std::cout << "Wrong password.\n";
             }
-
             if (authenticated) {
+                university->getLogger().log("admin", "Logged in");
                 runAdminSession(*university);
             }
             else {
-                // Req #3 Ч lockout пов≥домленн€
                 std::cout << "Locked out. Too many failed attempts.\n";
             }
         }
