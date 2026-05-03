@@ -17,9 +17,9 @@ void clearInput() {
 void showAdminMenu() {
     std::cout << "\n--- Admin Panel ---\n"
         << "1. Add new student\n"
-        << "2. Set student EVI score\n"       // Ќќ¬≈ Ч req #4
-        << "3. Set student degrees\n"          // Ќќ¬≈ Ч req #4
-        << "4. View all students\n"            // Ќќ¬≈
+        << "2. Set student EVI score\n"
+        << "3. Set student degrees\n"
+        << "4. View all students\n"
         << "5. Save data to file\n"
         << "0. Back\n";
 }
@@ -28,6 +28,8 @@ void showUserMenu() {
     std::cout << "\n--- Guest Menu ---\n"
         << "1. View students list\n"
         << "2. View admission programs\n"
+        << "3. Check my eligibility\n"   // Ќќ¬≈ Ч req #5
+        << "4. View action history\n"    // Ќќ¬≈ Ч req #8
         << "0. Back\n";
 }
 
@@ -44,17 +46,14 @@ void runAdminSession(UniversityManager& uni) {
             std::cout << "Age: ";        std::cin >> age;
             std::cout << "Student ID: "; std::cin >> id;
             uni.addStudent(std::make_shared<Student>(name, age, id));
-            // Req #8 Ч логуЇмо додаванн€ студента
             uni.getLogger().log("admin", "Added student: " + name);
             std::cout << "Student added.\n";
         }
-        // Ќќ¬≈ Ч Req #4: встановити EVI score
         else if (action == 2) {
             std::string id; int score;
             std::cout << "Student ID: "; std::cin >> id;
             std::cout << "EVI score (0-200): ";
             if (!(std::cin >> score)) { clearInput(); continue; }
-
             bool found = false;
             for (auto& s : uni.getStudents()) {
                 if (s->getStudentID() == id) {
@@ -71,19 +70,16 @@ void runAdminSession(UniversityManager& uni) {
             }
             if (!found) std::cout << "Student not found.\n";
         }
-        // Ќќ¬≈ Ч Req #4: встановити ступен≥ та публ≥кац≥њ
         else if (action == 3) {
             std::string id; int b, m, p;
             std::cout << "Student ID: ";          std::cin >> id;
             std::cout << "Has Bachelor? (1/0): "; std::cin >> b;
             std::cout << "Has Master?   (1/0): "; std::cin >> m;
             std::cout << "Publications? (1/0): "; std::cin >> p;
-
             bool found = false;
             for (auto& s : uni.getStudents()) {
                 if (s->getStudentID() == id) {
                     s->setBachelor(b); s->setMaster(m); s->setPublications(p);
-                    // Req #8 Ч логуЇмо зм≥ну ступен≥в
                     uni.getLogger().log("admin", "Updated degrees for " + id);
                     std::cout << "Degrees updated.\n";
                     found = true; break;
@@ -91,7 +87,6 @@ void runAdminSession(UniversityManager& uni) {
             }
             if (!found) std::cout << "Student not found.\n";
         }
-        // Ќќ¬≈ Ч перегл€нути вс≥х студент≥в
         else if (action == 4) {
             const auto& students = uni.getStudents();
             if (students.empty()) std::cout << "No students yet.\n";
@@ -114,9 +109,49 @@ void runUserSession(UniversityManager& uni) {
             const auto& students = uni.getStudents();
             if (students.empty()) std::cout << "No students.\n";
             else for (const auto& s : students) s->displayInfo();
+            uni.getLogger().log("user", "Viewed students list");
         }
         else if (action == 2) {
             for (const auto& p : uni.getPrograms()) p->displayInfo();
+            uni.getLogger().log("user", "Viewed admission programs");
+        }
+        // Ќќ¬≈ Ч Req #5: юзер вводить своњ дан≥ ≥ перев≥р€Ї eligibility
+        else if (action == 3) {
+            std::string name, id; int age;
+            std::cout << "Your name: ";  std::cin >> name;
+            std::cout << "Your age: ";   std::cin >> age;
+            std::cout << "Your ID: ";    std::cin >> id;
+
+            Student temp(name, age, id);
+
+            int evi;
+            std::cout << "Your EVI score (0-200): "; std::cin >> evi;
+            try {
+                temp.setEviScore(evi);
+            }
+            catch (const ValidationException& e) {
+                std::cout << e.what() << "\n";
+                continue;
+            }
+
+            int b, m, p;
+            std::cout << "Have Bachelor? (1/0): "; std::cin >> b; temp.setBachelor(b);
+            std::cout << "Have Master?   (1/0): "; std::cin >> m; temp.setMaster(m);
+            std::cout << "Publications?  (1/0): "; std::cin >> p; temp.setPublications(p);
+
+            // Req #5 Ч показуЇмо вс≥ програми ≥ перев≥р€Їмо
+            std::cout << "\n--- Eligibility Results ---\n";
+            const auto& programs = uni.getPrograms();
+            for (size_t i = 0; i < programs.size(); i++) {
+                programs[i]->printRequirements();
+                programs[i]->checkEligibility(temp);
+                // Req #8 Ч логуЇмо €ку програму перев≥р€в юзер
+                uni.getLogger().log("user", name + " checked eligibility for program " + std::to_string(i + 1));
+            }
+        }
+        // Ќќ¬≈ Ч Req #8: перегл€нути лог д≥й
+        else if (action == 4) {
+            uni.showHistory();
         }
     }
 }
@@ -155,6 +190,7 @@ int main() {
             }
         }
         else if (roleChoice == 2) {
+            university->getLogger().log("user", "Guest session started");
             runUserSession(*university);
         }
     }
